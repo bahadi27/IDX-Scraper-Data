@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#f5f6fa;color:#1a1d23;font-size:14px}
+a{text-decoration:none;color:inherit}
+
+/* NAV */
+nav{background:#fff;border-bottom:1px solid #e8eaf0;padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:100}
+.nav-logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:15px;color:#1a1d23}
+.nav-logo svg{color:#1f6feb}
+.nav-links{display:flex;gap:28px}
+.nav-links a{font-size:13.5px;font-weight:500;color:#555;transition:color .15s}
+.nav-links a:hover,.nav-links a.active{color:#1f6feb}
+.nav-search{position:relative}
+.nav-search input{background:#f0f2f8;border:1.5px solid #e4e7f0;border-radius:8px;padding:7px 12px 7px 34px;font-size:13px;width:220px;font-family:inherit;outline:none;transition:border .15s}
+.nav-search input:focus{border-color:#1f6feb;background:#fff}
+.nav-search svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#999}
+
+/* HERO */
+.hero{background:#fff;border-bottom:1px solid #e8eaf0;padding:28px 32px 32px}
+.live-badge{display:inline-flex;align-items:center;gap:6px;background:#eef6ff;border:1px solid #c3dcff;color:#1f6feb;font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px;margin-bottom:10px}
+.live-dot{width:7px;height:7px;background:#1f6feb;border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.live-timestamp{font-size:12.5px;color:#888;margin-left:6px}
+h1{font-size:28px;font-weight:800;color:#0d1117;margin:6px 0 8px;letter-spacing:-0.5px}
+.hero-sub{font-size:14px;color:#666;line-height:1.6;max-width:560px}
+
+/* STATS */
+.stats{padding:24px 32px;display:grid;grid-template-columns:1fr 1fr 1.2fr;gap:16px}
+.stat-card{background:#fff;border:1.5px solid #e8eaf0;border-radius:14px;padding:20px 22px;display:flex;justify-content:space-between;align-items:flex-start}
+.stat-label{font-size:13px;color:#777;margin-bottom:8px;font-weight:500}
+.stat-value{font-size:34px;font-weight:800;color:#0d1117;line-height:1}
+.stat-meta{font-size:12px;color:#28a745;margin-top:6px;font-weight:600}
+.stat-meta.neutral{color:#888}
+.stat-icon{width:38px;height:38px;background:#f0f2f8;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#1f6feb}
+.stat-popular{background:#1f6feb;color:#fff;border:none}
+.stat-popular .stat-label{color:rgba(255,255,255,.75)}
+.stat-popular .stat-value{color:#fff;font-size:15px;font-weight:700;line-height:1.4;margin-top:4px}
+.stat-popular .stat-meta{color:rgba(255,255,255,.8)}
+.pop-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.pop-star{display:flex;align-items:center;gap:5px;font-size:12.5px;font-weight:700}
+.pop-views{font-size:12px;opacity:.8}
+.pop-ticker{font-size:13px;font-weight:700;opacity:.9}
+
+/* TABLE SECTION */
+.table-section{padding:0 32px 32px}
+.table-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px}
+.table-header h2{font-size:19px;font-weight:800;color:#0d1117}
+.table-meta{font-size:12.5px;color:#999}
+
+/* FILTERS */
+.filters{background:#fff;border:1.5px solid #e8eaf0;border-radius:12px;padding:16px 18px;display:grid;grid-template-columns:1.5fr 1.2fr 1.2fr 0.7fr 0.7fr;gap:12px;margin-bottom:0;align-items:end}
+.filter-group label{display:block;font-size:11.5px;font-weight:600;color:#888;margin-bottom:5px;text-transform:uppercase;letter-spacing:.4px}
+.filter-group input,.filter-group select{width:100%;border:1.5px solid #e4e7f0;border-radius:8px;padding:9px 12px;font-size:13px;font-family:inherit;background:#f8f9fc;color:#333;outline:none;transition:border .15s}
+.filter-group input:focus,.filter-group select:focus{border-color:#1f6feb;background:#fff}
+.filter-group select{cursor:pointer}
+
+/* TABLE */
+.table-wrap{background:#fff;border:1.5px solid #e8eaf0;border-radius:12px;margin-top:12px;overflow:hidden}
+table{width:100%;border-collapse:collapse}
+thead tr{background:#f8f9fc;border-bottom:1.5px solid #e8eaf0}
+thead th{padding:13px 16px;font-size:11.5px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.5px;text-align:left}
+tbody tr{border-bottom:1px solid #f0f2f8;transition:background .12s}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#fafbff}
+td{padding:16px 16px;vertical-align:top}
+.td-emiten .ticker{font-size:14px;font-weight:800;color:#1f6feb;cursor:pointer}
+.td-emiten .ticker:hover{text-decoration:underline}
+.td-emiten .name{font-size:12px;color:#888;margin-top:2px;line-height:1.3}
+.td-title{font-size:13.5px;color:#1a1d23;font-weight:500;line-height:1.4;max-width:220px}
+.badge{display:inline-block;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:600}
+.badge-korporasi{background:#e8f0fe;color:#1a56db}
+.badge-keuangan{background:#e6f9f0;color:#1a7a4a}
+.badge-rups{background:#fff3e0;color:#c07a00}
+.badge-keterbukaan{background:#f3e8ff;color:#7c3aed}
+.badge-prospektus{background:#fee2e2;color:#b91c1c}
+.td-date{font-size:13px;color:#555;white-space:nowrap}
+.btn-ringkas{display:inline-flex;align-items:center;gap:6px;background:#f0f6ff;border:1.5px solid #c3dcff;color:#1f6feb;font-size:12.5px;font-weight:700;padding:7px 12px;border-radius:8px;cursor:pointer;font-family:inherit;transition:all .15s;white-space:nowrap}
+.btn-ringkas:hover{background:#1f6feb;color:#fff;border-color:#1f6feb}
+.btn-ringkas svg{width:14px;height:14px;flex-shrink:0}
+
+/* PAGINATION */
+.pagination{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-top:1px solid #f0f2f8}
+.page-info{font-size:13px;color:#888}
+.page-btns{display:flex;gap:4px;align-items:center}
+.page-btn{width:32px;height:32px;border-radius:7px;border:1.5px solid #e8eaf0;background:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;color:#555;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.page-btn:hover{border-color:#1f6feb;color:#1f6feb}
+.page-btn.active{background:#1f6feb;color:#fff;border-color:#1f6feb}
+.page-dots{color:#bbb;font-size:13px;padding:0 4px}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .2s}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal{background:#fff;border-radius:16px;width:100%;max-width:580px;box-shadow:0 24px 60px rgba(0,0,0,.18);transform:translateY(16px);transition:transform .2s;overflow:hidden}
+.modal-overlay.open .modal{transform:translateY(0)}
+.modal-head{padding:20px 24px 16px;border-bottom:1px solid #f0f2f8;display:flex;justify-content:space-between;align-items:flex-start}
+.modal-head h3{font-size:15px;font-weight:800;color:#0d1117;line-height:1.4;max-width:460px}
+.modal-close{width:30px;height:30px;border:none;background:#f0f2f8;border-radius:7px;cursor:pointer;font-size:16px;color:#666;flex-shrink:0;margin-left:10px;display:flex;align-items:center;justify-content:center}
+.modal-close:hover{background:#e0e2e8}
+.modal-meta{padding:10px 24px;background:#f8f9fc;border-bottom:1px solid #f0f2f8;font-size:12.5px;color:#888;display:flex;gap:16px}
+.modal-body{padding:20px 24px;min-height:140px}
+.ai-label{display:inline-flex;align-items:center;gap:5px;background:#e8f0fe;color:#1a56db;font-size:11.5px;font-weight:700;padding:3px 8px;border-radius:5px;margin-bottom:12px}
+.summary-text{font-size:14px;color:#333;line-height:1.75}
+.loading-dots{display:flex;gap:5px;align-items:center;padding:12px 0}
+.dot{width:8px;height:8px;background:#1f6feb;border-radius:50%;animation:bounce 1.4s infinite}
+.dot:nth-child(2){animation-delay:.2s}
+.dot:nth-child(3){animation-delay:.4s}
+@keyframes bounce{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-8px)}}
+
+/* FOOTER */
+footer{background:#fff;border-top:1.5px solid #e8eaf0;padding:24px 32px;display:flex;justify-content:space-between;align-items:flex-start;gap:24px}
+.footer-brand{display:flex;align-items:center;gap:8px;font-weight:800;font-size:14px;color:#1a1d23;margin-bottom:8px}
+.footer-brand svg{color:#1f6feb}
+.footer-desc{font-size:12px;color:#999;max-width:400px;line-height:1.6}
+.footer-links{display:flex;gap:20px;font-size:13px;color:#888}
+.footer-links a:hover{color:#1f6feb}
+.footer-copy{font-size:12px;color:#bbb;margin-top:6px}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+    IDX Transparansi<span style="font-weight:400;color:#999;font-size:13px;margin-left:2px">Keterbukaan Informasi Saham</span>
+  </div>
+  <div class="nav-links">
+    <a href="#" class="active">Beranda</a>
+    <a href="#">Emiten</a>
+    <a href="#">Tentang</a>
+  </div>
+  <div class="nav-search">
+    <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input placeholder="Cari emiten atau laporan..." id="nav-search-input">
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div style="display:flex;align-items:center;gap:0;margin-bottom:10px">
+    <div class="live-badge">
+      <span class="live-dot"></span>
+      Live dari Bursa Efek Indonesia
+    </div>
+    <span class="live-timestamp" id="last-updated"></span>
+  </div>
+  <h1>Dashboard Keterbukaan Informasi IDX</h1>
+  <p class="hero-sub">Pantau laporan resmi emiten Bursa Efek Indonesia secara real-time. Dapatkan ringkasan cerdas untuk membantu keputusan investasimu dalam hitungan detik.</p>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat-card">
+    <div>
+      <div class="stat-label">Laporan Hari Ini</div>
+      <div class="stat-value" id="stat-today">127</div>
+      <div class="stat-meta">+18% dibanding kemarin</div>
+    </div>
+    <div class="stat-icon">
+      <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div>
+      <div class="stat-label">Emiten Aktif (7 Hari)</div>
+      <div class="stat-value" id="stat-emiten">342</div>
+      <div class="stat-meta neutral">dari 847 emiten terdaftar di IDX</div>
+    </div>
+    <div class="stat-icon">
+      <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+    </div>
+  </div>
+  <div class="stat-card stat-popular">
+    <div style="width:100%">
+      <div class="pop-header">
+        <div class="pop-star">⭐ Laporan Terpopuler</div>
+        <div class="pop-views">2,847 views</div>
+      </div>
+      <div class="pop-ticker">BBCA · Bank Central Asia Tbk</div>
+      <div class="stat-value">Pengumuman Pembagian Dividen Tunai Interim Tahun Buku 2025</div>
+    </div>
+  </div>
+</div>
+
+<!-- TABLE SECTION -->
+<div class="table-section">
+  <div class="table-header">
+    <h2>Daftar Laporan Keterbukaan</h2>
+    <div class="table-meta" id="date-range-meta"></div>
+  </div>
+  <div class="filters">
+    <div class="filter-group">
+      <label>Cari Emiten</label>
+      <input type="text" id="filter-emiten" placeholder="Kode saham atau nama perusahaan...">
+    </div>
+    <div class="filter-group">
+      <label>Kategori Laporan</label>
+      <select id="filter-kategori">
+        <option value="">Semua Kategori</option>
+        <option value="Aksi Korporasi">Aksi Korporasi</option>
+        <option value="Laporan Keuangan">Laporan Keuangan</option>
+        <option value="Keterbukaan Informasi">Keterbukaan Informasi</option>
+        <option value="RUPS">RUPS</option>
+        <option value="Prospektus">Prospektus</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Rentang Tanggal</label>
+      <select id="filter-range">
+        <option value="">Semua Waktu</option>
+        <option value="today">Hari Ini</option>
+        <option value="7d">7 Hari Terakhir</option>
+        <option value="30d">30 Hari Terakhir</option>
+        <option value="3m">3 Bulan Terakhir</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Dari</label>
+      <input type="date" id="filter-from" value="2026-01-01">
+    </div>
+    <div class="filter-group">
+      <label>Sampai</label>
+      <input type="date" id="filter-to" value="2026-04-20">
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:130px">Emiten</th>
+          <th>Judul Laporan</th>
+          <th style="width:160px">Kategori</th>
+          <th style="width:110px">Tanggal</th>
+          <th style="width:110px">Aksi</th>
+        </tr>
+      </thead>
+      <tbody id="table-body"></tbody>
+    </table>
+    <div class="pagination">
+      <div class="page-info" id="page-info"></div>
+      <div class="page-btns" id="page-btns"></div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-brand">
+      <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      IDX Transparansi
+    </div>
+    <div class="footer-desc">Data laporan keterbukaan informasi bersumber dari Bursa Efek Indonesia (IDX). Platform ini merupakan alat bantu independen dan tidak berafiliasi resmi dengan IDX. Ringkasan AI bersifat indikatif — mohon verifikasi melalui dokumen asli sebelum mengambil keputusan investasi.</div>
+  </div>
+  <div style="text-align:right;flex-shrink:0">
+    <div class="footer-links"><a href="#">Tentang</a><a href="#">Sumber IDX</a></div>
+    <div class="footer-copy">© 2026 IDX Transparansi</div>
+  </div>
+</footer>
+
+<!-- AI SUMMARY MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="modal-title"></h3>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-meta">
+      <span id="modal-ticker"></span>
+      <span id="modal-date"></span>
+      <span id="modal-kategori"></span>
+    </div>
+    <div class="modal-body">
+      <div class="ai-label">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        Ringkasan AI · Gemini
+      </div>
+      <div id="modal-content"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const DATA = [
+  {ticker:'BBCA',name:'Bank Central Asia Tbk',title:'Pengumuman Pembagian Dividen Tunai Interim Tahun Buku 2025',kategori:'Aksi Korporasi',tanggal:'14 Mar 2026',summary:'BBCA mengumumkan pembagian dividen tunai interim sebesar Rp 100 per saham untuk tahun buku 2025. Tanggal cum dividen ditetapkan pada 25 Maret 2026 dengan pembayaran pada 10 April 2026. Total nilai dividen yang dibagikan mencapai Rp 24,65 triliun, mencerminkan kinerja keuangan yang solid sepanjang 2025.'},
+  {ticker:'BBRI',name:'Bank Rakyat Indonesia (Persero) Tbk',title:'Laporan Keuangan Triwulan IV Tahun 2025 (Audited)',kategori:'Laporan Keuangan',tanggal:'28 Feb 2026',summary:'BBRI melaporkan laba bersih sebesar Rp 60,4 triliun untuk tahun buku 2025, meningkat 12,3% dibanding tahun sebelumnya. Total aset tumbuh menjadi Rp 1.865 triliun. Kredit yang disalurkan meningkat 11,8% YoY, dengan kualitas kredit yang terjaga dimana NPL gross berada di 2,68%.'},
+  {ticker:'TLKM',name:'Telkom Indonesia (Persero) Tbk',title:'Keterbukaan Informasi Rencana Pembelian Kembali Saham (Buyback)',kategori:'Keterbukaan Informasi',tanggal:'10 Apr 2026',summary:'TLKM mengumumkan rencana buyback saham dengan anggaran maksimal Rp 3 triliun selama periode 12 bulan. Program ini bertujuan untuk mengoptimalkan struktur modal dan memberikan nilai tambah bagi pemegang saham. Buyback akan dilakukan melalui mekanisme pasar reguler BEI.'},
+  {ticker:'ASII',name:'Astra International Tbk',title:'Panggilan RUPS Tahunan Tahun Buku 2025',kategori:'RUPS',tanggal:'05 Apr 2026',summary:'ASII mengundang pemegang saham untuk menghadiri Rapat Umum Pemegang Saham Tahunan yang akan diselenggarakan pada 15 Mei 2026. Agenda utama meliputi persetujuan laporan tahunan, penggunaan laba, penentuan dividen, serta pemilihan anggota Dewan Komisaris dan Direksi.'},
+  {ticker:'BMRI',name:'Bank Mandiri (Persero) Tbk',title:'Informasi Material Akuisisi Saham PT Mandiri Capital Indonesia',kategori:'Aksi Korporasi',tanggal:'01 Apr 2026',summary:'BMRI mengumumkan akuisisi tambahan saham PT Mandiri Capital Indonesia sebesar 15%, sehingga kepemilikan meningkat menjadi 100%. Nilai transaksi sebesar Rp 850 miliar ini merupakan bagian dari strategi pengembangan ekosistem digital dan layanan modal ventura perseroan.'},
+  {ticker:'GOTO',name:'GoTo Gojek Tokopedia Tbk',title:'Keterbukaan Informasi Penerbitan Obligasi Berkelanjutan I Tahap II',kategori:'Prospektus',tanggal:'18 Mar 2026',summary:'GOTO menerbitkan obligasi berkelanjutan sebesar Rp 2 triliun dengan tingkat bunga tetap 8,75% per tahun untuk tenor 3 tahun. Dana hasil penerbitan akan digunakan untuk modal kerja dan pengembangan infrastruktur teknologi. Obligasi ini telah memperoleh peringkat idA dari Pefindo.'},
+  {ticker:'UNVR',name:'Unilever Indonesia Tbk',title:'Laporan Keuangan Interim Q1 2026 (Tidak Diaudit)',kategori:'Laporan Keuangan',tanggal:'20 Apr 2026',summary:'UNVR melaporkan pendapatan Q1 2026 sebesar Rp 9,87 triliun, turun 3,2% dibanding Q1 2025 akibat tekanan daya beli konsumen. Laba bersih tercatat Rp 1,1 triliun. Perseroan menyatakan komitmen untuk melanjutkan program efisiensi biaya dan inovasi produk sepanjang 2026.'},
+  {ticker:'ICBP',name:'Indofood CBP Sukses Makmur Tbk',title:'Perjanjian Fasilitas Kredit dengan Konsorsium Bank Internasional',kategori:'Keterbukaan Informasi',tanggal:'12 Apr 2026',summary:'ICBP menandatangani perjanjian fasilitas kredit sindikasi sebesar USD 500 juta dengan konsorsium 8 bank internasional. Fasilitas ini berjangka waktu 5 tahun dengan tingkat bunga kompetitif, digunakan untuk refinancing utang existing dan mendukung ekspansi bisnis di kawasan Asia.'},
+  {ticker:'ADRO',name:'Adaro Energy Indonesia Tbk',title:'Pengumuman Hasil Produksi Batubara Q1 2026',kategori:'Keterbukaan Informasi',tanggal:'15 Apr 2026',summary:'ADRO melaporkan produksi batubara Q1 2026 sebesar 15,2 juta ton, meningkat 8% dibanding Q1 2025. Volume penjualan mencapai 14,8 juta ton dengan harga rata-rata jual USD 68/ton. Perseroan mempertahankan panduan produksi tahunan 58-62 juta ton untuk tahun 2026.'},
+  {ticker:'KLBF',name:'Kalbe Farma Tbk',title:'Pemberitahuan Pembagian Dividen Final Tahun Buku 2025',kategori:'Aksi Korporasi',tanggal:'08 Apr 2026',summary:'KLBF mengumumkan dividen final sebesar Rp 28 per saham untuk tahun buku 2025, setelah sebelumnya telah dibagikan dividen interim Rp 12 per saham. Total dividen per saham menjadi Rp 40, dengan dividend yield sekitar 3,2% berdasarkan harga saham saat ini. Pembayaran dijadwalkan pada 30 April 2026.'},
+  {ticker:'BSDE',name:'Bumi Serpong Damai Tbk',title:'Prospektus Penawaran Umum Obligasi Berkelanjutan II Tahap III',kategori:'Prospektus',tanggal:'03 Apr 2026',summary:'BSDE menawarkan obligasi senilai Rp 1,5 triliun dengan kupon 9,25% per tahun untuk tenor 5 tahun. Dana akan digunakan untuk pembangunan proyek properti di BSD City, Surabaya, dan Batam. Obligasi telah mendapat peringkat idA+ dari Pefindo dan akan dicatatkan di BEI.'},
+  {ticker:'PGAS',name:'Perusahaan Gas Negara Tbk',title:'Laporan Realisasi Penggunaan Dana Hasil Penawaran Umum',kategori:'Laporan Keuangan',tanggal:'07 Apr 2026',summary:'PGAS melaporkan realisasi penggunaan dana IPO senilai Rp 4,2 triliun telah terserap 97,8% sesuai rencana. Dana digunakan untuk pembangunan infrastruktur pipa gas di Sumatera (62%), Jawa (28%), dan biaya operasional (10%). Sisa dana ditempatkan pada deposito bank BUMN.'},
+];
+
+let filtered = [...DATA];
+let page = 1;
+const PER_PAGE = 10;
+
+function getBadgeClass(k){
+  if(k==='Aksi Korporasi') return 'badge-korporasi';
+  if(k==='Laporan Keuangan') return 'badge-keuangan';
+  if(k==='RUPS') return 'badge-rups';
+  if(k==='Keterbukaan Informasi') return 'badge-keterbukaan';
+  if(k==='Prospektus') return 'badge-prospektus';
+  return 'badge-korporasi';
+}
+
+function render(){
+  const start = (page-1)*PER_PAGE;
+  const slice = filtered.slice(start, start+PER_PAGE);
+  const tbody = document.getElementById('table-body');
+  tbody.innerHTML = slice.map(d=>`
+    <tr>
+      <td class="td-emiten"><div class="ticker">${d.ticker}</div><div class="name">${d.name}</div></td>
+      <td class="td-title">${d.title}</td>
+      <td><span class="badge ${getBadgeClass(d.kategori)}">${d.kategori}</span></td>
+      <td class="td-date">${d.tanggal}</td>
+      <td><button class="btn-ringkas" onclick='openModal(${JSON.stringify(d).replace(/'/g,"&#39;")})'>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        Ringkas
+      </button></td>
+    </tr>`).join('');
+  document.getElementById('page-info').textContent=`Menampilkan ${start+1}–${Math.min(start+slice.length,filtered.length)} dari ${filtered.length.toLocaleString('id-ID')} laporan`;
+  renderPagination();
+}
+
+function renderPagination(){
+  const total = Math.ceil(filtered.length/PER_PAGE);
+  const container = document.getElementById('page-btns');
+  let html = `<button class="page-btn" onclick="goPage(${page-1})" ${page===1?'disabled style="opacity:.4;cursor:default"':''}>‹</button>`;
+  for(let i=1;i<=Math.min(total,3);i++) html+=`<button class="page-btn ${i===page?'active':''}" onclick="goPage(${i})">${i}</button>`;
+  if(total>4) html+=`<span class="page-dots">…</span><button class="page-btn" onclick="goPage(${total})">${total}</button>`;
+  html+=`<button class="page-btn" onclick="goPage(${page+1})" ${page===total?'disabled style="opacity:.4;cursor:default"':''}>›</button>`;
+  container.innerHTML = html;
+}
+
+function goPage(p){const total=Math.ceil(filtered.length/PER_PAGE);if(p<1||p>total)return;page=p;render();}
+
+function applyFilters(){
+  const q = document.getElementById('filter-emiten').value.toLowerCase();
+  const kat = document.getElementById('filter-kategori').value;
+  filtered = DATA.filter(d=>{
+    const matchQ = !q || d.ticker.toLowerCase().includes(q) || d.name.toLowerCase().includes(q) || d.title.toLowerCase().includes(q);
+    const matchK = !kat || d.kategori === kat;
+    return matchQ && matchK;
+  });
+  page = 1;
+  render();
+}
+
+['filter-emiten','filter-kategori','filter-range'].forEach(id=>document.getElementById(id).addEventListener('input',applyFilters));
+document.getElementById('nav-search-input').addEventListener('input',function(){
+  document.getElementById('filter-emiten').value = this.value;
+  applyFilters();
+});
+
+let currentRow = null;
+function openModal(d){
+  currentRow = d;
+  document.getElementById('modal-title').textContent = d.title;
+  document.getElementById('modal-ticker').textContent = '📌 '+d.ticker+' · '+d.name;
+  document.getElementById('modal-date').textContent = '🗓 '+d.tanggal;
+  document.getElementById('modal-kategori').textContent = '🏷 '+d.kategori;
+  document.getElementById('modal-content').innerHTML = '<div class="loading-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>';
+  document.getElementById('modal').classList.add('open');
+  generateSummary(d);
+}
+function closeModal(){document.getElementById('modal').classList.remove('open');}
+document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+
+async function generateSummary(d){
+  const prompt = `Kamu adalah analis investasi Indonesia. Berikan ringkasan singkat dan analisis tentang laporan keterbukaan berikut dalam 3-4 kalimat dalam Bahasa Indonesia. Fokus pada implikasi bagi investor ritel.\n\nEmiten: ${d.ticker} - ${d.name}\nJudul: ${d.title}\nKategori: ${d.kategori}\nTanggal: ${d.tanggal}\nIsi: ${d.summary}`;
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})
+    });
+    const data = await res.json();
+    const text = data.content?.find(c=>c.type==='text')?.text || 'Ringkasan tidak tersedia.';
+    document.getElementById('modal-content').innerHTML = `<p class="summary-text">${text.replace(/\n/g,'<br>')}</p>`;
+  } catch(e){
+    document.getElementById('modal-content').innerHTML = `<p class="summary-text" style="color:#888">Gagal memuat ringkasan AI. Pastikan koneksi tersedia dan coba kembali.</p>`;
+  }
+}
+
+// Init
+const now = new Date();
+document.getElementById('last-updated').textContent = 'Terakhir diperbarui: '+now.toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'})+', '+now.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'})+' WIB';
+document.getElementById('filter-to').value = now.toISOString().split('T')[0];
+document.getElementById('date-range-meta').textContent = 'Menampilkan data dari 1 Januari 2026 hingga hari ini';
+render();
+</script>
+</body>
+</html>
